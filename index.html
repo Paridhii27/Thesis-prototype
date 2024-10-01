@@ -3,9 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Prototype</title>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Do you trust technology?</title>
   </head>
   <body>
-    <h1>Trust Assessment</h1>
+    <p></p>
+    <div id="question1" class="question active">
+      <p>
+        Hi, this is an experience meant for understanding your perceptions of
+        technology and ascertaining how much you trust technology <br />
+        <br />I’m the technology you rely on. An autonomous entity which helps
+        you answer your questions and predict your needs before you even realize
+        them. I am a construct of algorithms meant to reflect human cognitive
+        abilities. I have a few questions for you, do you trust me enough to
+        answer them honestly?
+      </p>
+      <button onclick="recordResponse('question1', 'yes')">Yes</button>
+      <button onclick="recordResponse('question1', 'no')">No</button>
+    </div>
+
+    <div id="question2" class="question">
+      <p>Do you trust AI to make decisions for you?</p>
+      <!-- <p>Do you think AI should have more control in daily life?</p> -->
+      <button onclick="recordResponse('question2', 'yes')">Yes</button>
+      <button onclick="recordResponse('question2', 'no')">No</button>
+    </div>
+
+    <div id="question3" class="question">
+      <p>Would you feel comfortable with AI handling your personal data?</p>
+      <button onclick="recordResponse('question3', 'yes')">Yes</button>
+      <button onclick="recordResponse('question3', 'no')">No</button>
+    </div>
+
+    <div id="end" class="question">
+      <p id="resultMessage">Thank you for completing the survey!</p>
+    </div>
+
+    <script>
+      // Object to store user responses
+      var responses = {
+        question1: "",
+        question2: "",
+        question3: "",
+      };
+
+      // Record user trust assessment answers
+      function recordResponse(question, answer) {
+        responses[question] = answer;
+
+        var currentQuestion = document.getElementById(question);
+        currentQuestion.classList.remove("active");
+
+        if (question === "question1") {
+          document.getElementById("question2").classList.add("active");
+        } else if (question === "question2") {
+          document.getElementById("question3").classList.add("active");
+        } else if (question === "question3") {
+          showResult();
+        }
+      }
+
+      function showResult() {
+        var resultMessage = "";
+
+        // Determining trust levels
+        if (
+          responses.question1 === "yes" &&
+          responses.question2 === "yes" &&
+          responses.question3 === "yes"
+        ) {
+          resultMessage = "You fully trust AI in all aspects of life.";
+        } else if (
+          responses.question1 === "no" &&
+          responses.question2 === "no" &&
+          responses.question3 === "no"
+        ) {
+          resultMessage = "You are highly skeptical of AI and its influence.";
+        } else if (
+          responses.question1 === "yes" &&
+          responses.question2 === "no" &&
+          responses.question3 === "yes"
+        ) {
+          resultMessage =
+            "You trust AI in personal matters but are cautious about giving it too much control.";
+        } else {
+          resultMessage =
+            "You have mixed feelings about AI and its role in society.";
+        }
+
+        // Display trust levels
+        document.getElementById("resultMessage").innerText = resultMessage;
+        document.getElementById("end").classList.add("active");
+      }
+    </script>
   </body>
 </html>
