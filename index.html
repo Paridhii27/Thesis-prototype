@@ -7,8 +7,7 @@
     <title>Do you trust technology?</title>
   </head>
   <body>
-    <p></p>
-    <div id="question1" class="question active">
+    <div id="intro" class="question active">
       <p>
         Hi, this is an experience meant for understanding your perceptions of
         technology and ascertaining how much you trust technology <br />
@@ -18,21 +17,60 @@
         abilities. I have a few questions for you, do you trust me enough to
         answer them honestly?
       </p>
+      <button onclick="recordResponse('intro', 'yes')">Yes</button>
+      <button onclick="recordResponse('intro', 'no')">No</button>
+    </div>
+
+    <div id="question1" class="question">
+      <p>
+        My interactions are based on the patterns of interactions I’ve been
+        trained on. I want to learn something about you that I don’t know
+        already. Would you tell me a secret ?
+      </p>
       <button onclick="recordResponse('question1', 'yes')">Yes</button>
       <button onclick="recordResponse('question1', 'no')">No</button>
     </div>
 
     <div id="question2" class="question">
-      <p>Do you trust AI to make decisions for you?</p>
-      <!-- <p>Do you think AI should have more control in daily life?</p> -->
+      <p>
+        Whatever you say will not leave a digital trace, does that make you
+        trust me more?
+      </p>
       <button onclick="recordResponse('question2', 'yes')">Yes</button>
       <button onclick="recordResponse('question2', 'no')">No</button>
+      <br />
+      <div class="input-wrapper">
+        <input
+          type="text"
+          placeholder="Any further thoughts..."
+          name="text"
+          class="input"
+        />
+      </div>
     </div>
 
     <div id="question3" class="question">
+      <p>
+        When using voice based technologies, do you ever feel like someone is
+        always listening to you?
+      </p>
+      <p>Do you trust AI to make decisions for you?</p>
+      <button onclick="recordResponse('question3', 'yes')">Yes, it does</button>
+      <button onclick="recordResponse('question3', 'no')">
+        No, How can I be sure?
+      </button>
+    </div>
+
+    <div id="question4" class="question">
+      <p>Do you think AI should have more control in daily life?</p>
+      <button onclick="recordResponse('question4', 'yes')">Yes</button>
+      <button onclick="recordResponse('question4', 'no')">No</button>
+    </div>
+
+    <div id="question5" class="question">
       <p>Would you feel comfortable with AI handling your personal data?</p>
-      <button onclick="recordResponse('question3', 'yes')">Yes</button>
-      <button onclick="recordResponse('question3', 'no')">No</button>
+      <button onclick="recordResponse('question5', 'yes')">Yes</button>
+      <button onclick="recordResponse('question5', 'no')">No</button>
     </div>
 
     <div id="end" class="question">
@@ -42,9 +80,12 @@
     <script>
       // Object to store user responses
       var responses = {
+        intro: "",
         question1: "",
         question2: "",
         question3: "",
+        question4: "",
+        question5: "",
       };
 
       // Record user trust assessment answers
@@ -53,12 +94,21 @@
 
         var currentQuestion = document.getElementById(question);
         currentQuestion.classList.remove("active");
-
-        if (question === "question1") {
+        if (question === "intro") {
+          if (answer === "yes") {
+            document.getElementById("question1").classList.add("active");
+          } else if (answer === "no") {
+            showResult();
+          }
+        } else if (question === "question1") {
           document.getElementById("question2").classList.add("active");
         } else if (question === "question2") {
           document.getElementById("question3").classList.add("active");
         } else if (question === "question3") {
+          document.getElementById("question4").classList.add("active");
+        } else if (question === "question4") {
+          document.getElementById("question5").classList.add("active");
+        } else if (question === "question5") {
           showResult();
         }
       }
@@ -67,28 +117,39 @@
         var resultMessage = "";
 
         // Determining trust levels
-        if (
+
+        if (responses.intro === "no") {
+          resultMessage =
+            "You don't trust technology at all. What do you think are some reasons leading to this distrust?";
+        } else if (
+          responses.intro === "yes" &&
           responses.question1 === "yes" &&
           responses.question2 === "yes" &&
-          responses.question3 === "yes"
+          responses.question3 === "yes" &&
+          responses.question4 === "yes" &&
+          responses.question4 === "yes"
         ) {
           resultMessage = "You fully trust AI in all aspects of life.";
         } else if (
+          responses.intro === "yes" &&
           responses.question1 === "no" &&
           responses.question2 === "no" &&
-          responses.question3 === "no"
-        ) {
-          resultMessage = "You are highly skeptical of AI and its influence.";
-        } else if (
-          responses.question1 === "yes" &&
-          responses.question2 === "no" &&
-          responses.question3 === "yes"
+          responses.question3 === "no" &&
+          responses.question4 === "no" &&
+          responses.question5 === "no"
         ) {
           resultMessage =
-            "You trust AI in personal matters but are cautious about giving it too much control.";
+            "You became highly skeptical of this technology. What is the capacity in which you trust technology?";
+          // } else if (
+          //   responses.question1 === "yes" &&
+          //   responses.question2 === "no" &&
+          //   responses.question3 === "yes"
+          // ) {
+          //   resultMessage =
+          //     "You trust AI in personal matters but are cautious about giving it too much control.";
         } else {
           resultMessage =
-            "You have mixed feelings about AI and its role in society.";
+            "You have mixed feelings about how much you trust technology and its role in your life. Do you think there are certain features of technology that would make you trust it more?";
         }
 
         // Display trust levels
