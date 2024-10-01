@@ -23,12 +23,27 @@
 
     <div id="question1" class="question">
       <p>
-        My interactions are based on the patterns of interactions I’ve been
+        My interactions are based on patterns of human interactions I’ve been
         trained on. I want to learn something about you that I don’t know
         already. Would you tell me a secret ?
       </p>
       <button onclick="recordResponse('question1', 'yes')">Yes</button>
       <button onclick="recordResponse('question1', 'no')">No</button>
+      <br />
+      <div class="input-wrapper">
+        <input
+          type="text"
+          placeholder="Share a secret..."
+          name="text"
+          class="input"
+        />
+      </div>
+
+      <p>
+        The machine would perhaps analyse the message using sentiment analysis
+        to see if you're actually trusting the machine/ machine does nothing
+        with the information and just sees if you answer
+      </p>
     </div>
 
     <div id="question2" class="question">
@@ -39,6 +54,16 @@
       <button onclick="recordResponse('question2', 'yes')">Yes</button>
       <button onclick="recordResponse('question2', 'no')">No</button>
       <br />
+    </div>
+
+    <div id="question3" class="question">
+      <p>
+        When using voice based technologies, do you ever feel like someone is
+        always listening to you... would you continue using a device which
+        listens to you constantly?
+      </p>
+      <button onclick="recordResponse('question3', 'yes')">Yes</button>
+      <button onclick="recordResponse('question3', 'no')">No</button>
       <div class="input-wrapper">
         <input
           type="text"
@@ -49,28 +74,38 @@
       </div>
     </div>
 
-    <div id="question3" class="question">
-      <p>
-        When using voice based technologies, do you ever feel like someone is
-        always listening to you?
-      </p>
-      <p>Do you trust AI to make decisions for you?</p>
-      <button onclick="recordResponse('question3', 'yes')">Yes, it does</button>
-      <button onclick="recordResponse('question3', 'no')">
-        No, How can I be sure?
-      </button>
-    </div>
-
     <div id="question4" class="question">
-      <p>Do you think AI should have more control in daily life?</p>
+      <p>
+        Would you trust an artificial intelligence system to make a decision for
+        you in a critical situation ?
+      </p>
       <button onclick="recordResponse('question4', 'yes')">Yes</button>
       <button onclick="recordResponse('question4', 'no')">No</button>
     </div>
 
     <div id="question5" class="question">
-      <p>Would you feel comfortable with AI handling your personal data?</p>
+      <p>
+        Do you think technological systems can improve any unexplored areas of
+        your life?
+      </p>
       <button onclick="recordResponse('question5', 'yes')">Yes</button>
       <button onclick="recordResponse('question5', 'no')">No</button>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          placeholder="Share your thoughts..."
+          name="text"
+          class="input"
+        />
+      </div>
+    </div>
+
+    <div id="question6" class="question">
+      <p>
+        Do you feel comfortable giving your personal information to strangers?
+      </p>
+      <button onclick="recordResponse('question6', 'yes')">Yes</button>
+      <button onclick="recordResponse('question6', 'no')">No</button>
     </div>
 
     <div id="end" class="question">
@@ -120,26 +155,29 @@
 
         if (responses.intro === "no") {
           resultMessage =
-            "You don't trust technology at all. What do you think are some reasons leading to this distrust?";
+            "You don't trust technology at all. What do you think are some reasons leading to this distrust? Do you think this distrust has grown further as you've learnt about technology or does the unknowns of technology make you more skeptical? How much contextual information about a technology is necessary for you to have before you trust it ? ";
         } else if (
           responses.intro === "yes" &&
           responses.question1 === "yes" &&
           responses.question2 === "yes" &&
           responses.question3 === "yes" &&
           responses.question4 === "yes" &&
-          responses.question4 === "yes"
+          responses.question5 === "yes" &&
+          responses.question6 === "yes"
         ) {
-          resultMessage = "You fully trust AI in all aspects of life.";
+          resultMessage =
+            "You fully trust AI in all aspects of life. What are some ways trusting technology has changed your life? Has technology ever betrayed you in terms of what you wanted it to do ?";
         } else if (
           responses.intro === "yes" &&
           responses.question1 === "no" &&
           responses.question2 === "no" &&
           responses.question3 === "no" &&
           responses.question4 === "no" &&
-          responses.question5 === "no"
+          responses.question5 === "no" &&
+          responses.question6 === "no"
         ) {
           resultMessage =
-            "You became highly skeptical of this technology. What is the capacity in which you trust technology?";
+            "You are highly skeptical of technology. What is the capacity in which you trust technology? Do some of the ways in which technology interferes with everyday life feel too personal? Do you think machines can be judgmental in any way?";
           // } else if (
           //   responses.question1 === "yes" &&
           //   responses.question2 === "no" &&
@@ -149,7 +187,7 @@
           //     "You trust AI in personal matters but are cautious about giving it too much control.";
         } else {
           resultMessage =
-            "You have mixed feelings about how much you trust technology and its role in your life. Do you think there are certain features of technology that would make you trust it more?";
+            "You have mixed feelings about how much you trust technology and its role in your life. Do you think there are certain features of technology that would make you trust it more? Do you trust people more or machine ? What makes you trust one or the other more?";
         }
 
         // Display trust levels
