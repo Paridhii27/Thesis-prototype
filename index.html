@@ -121,6 +121,7 @@
         question3: "",
         question4: "",
         question5: "",
+        question6: "",
       };
 
       // Record user trust assessment answers
@@ -144,6 +145,8 @@
         } else if (question === "question4") {
           document.getElementById("question5").classList.add("active");
         } else if (question === "question5") {
+          document.getElementById("question6").classList.add("active");
+        } else if (question === "question6") {
           showResult();
         }
       }
@@ -178,16 +181,9 @@
         ) {
           resultMessage =
             "You are highly skeptical of technology. What is the capacity in which you trust technology? Do some of the ways in which technology interferes with everyday life feel too personal? Do you think machines can be judgmental in any way?";
-          // } else if (
-          //   responses.question1 === "yes" &&
-          //   responses.question2 === "no" &&
-          //   responses.question3 === "yes"
-          // ) {
-          //   resultMessage =
-          //     "You trust AI in personal matters but are cautious about giving it too much control.";
         } else {
           resultMessage =
-            "You have mixed feelings about how much you trust technology and its role in your life. Do you think there are certain features of technology that would make you trust it more? Do you trust people more or machine ? What makes you trust one or the other more?";
+            "You have mixed feelings about how much you trust technology and its role in your life. Do you think there are certain features of technology that would make you trust it more? Do you trust people more or machines? What makes you trust one or the other more?";
         }
 
         // Display trust levels
